@@ -63,7 +63,7 @@ int ValidarData(Data var1){ //var1 é a variavel-parametro
     return 1; //Se funcionar
 }
 
-//Validador de telefone
+//Função validadora de Telefone
 int ValidarTelefone(Telefone var2){
     if(var2.DDD<11 || var2.DDD>91){
         return 0;
