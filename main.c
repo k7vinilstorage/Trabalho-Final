@@ -22,12 +22,20 @@ typedef struct Cliente{
 
 typedef struct Investimento{
     int TipoAplicacao;
+    char BancoEmissor [100];
+    float taxa;
+    char ATIVO;
+}Investimento;
+
+typedef struct Transacao{
+    int IdCliente;
+    Cliente cliente;
+    Investimento investimento;
     Data DataAplicacao;
     float ValorAplicacao;
-    float taxa;
     Data DataResgate;
     float ValorResgate;
-}Investimento;
+}Trasacao;
 
 int NumeroDigitos(long int num){ //contar quantos digitos têm
     int digitos=0;
