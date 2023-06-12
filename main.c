@@ -23,12 +23,20 @@ typedef struct Cliente{
 
 typedef struct Investimento{
     int TipoAplicacao;
+    char BancoEmissor [100];
+    float taxa;
+    char ATIVO;
+}Investimento;
+
+typedef struct Transacao{
+    int IdCliente;
+    Cliente cliente;
+    Investimento investimento;
     Data DataAplicacao;
     float ValorAplicacao;
-    float taxa;
     Data DataResgate;
     float ValorResgate;
-}Investimento;
+}Trasacao;
 
 int NumeroDigitos(long int num){ //contar quantos digitos têm
     int digitos=0;
@@ -51,9 +59,12 @@ int ValidarData(Data var1){ //var1 é a variavel-parametro
     return 1; //Se funcionar
 }
 
+// Função para validar telefone
 int ValidarTelefone(Telefone var2){
-    if(var2.DDD<11 || var2.DDD>91){
-        return 0;
+    if (var2.DDD >= 11 && var2.DDD <= 91) {
+        if (var2.numero >= 900000000 && var2.numero <= 999999999 || var2.numero <= 99999999 ) {
+            return 1;
+        } 
     }
 }
 
