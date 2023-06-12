@@ -1,46 +1,11 @@
 #include <stdio.h>
 #include <string.h>
+#include "Dados.h"
 
-//Tipo de dados para Data
-typedef struct Data{
-    int dia;
-    int mes;
-    int ano;
-}Data;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Funções Validadoras
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//Tipo de dados para telefone
-typedef struct Telefone{
-    int DDD;
-    long int numero; //perguntar ao prof se nao pode substituir por uma string de vetor ou mesmo uma string numerica
-}Telefone;
-
-//Tipo de dados para cliente
-typedef struct Cliente{
-    char Nome[50];
-    char CPF[15];
-    Telefone Fone;
-    Data Nascimento;
-}Cliente;
-
-//Tipo de dados para Investimento
-typedef struct Investimento{
-    int TipoAplicacao;
-    char BancoEmissor [100];
-    float taxa;
-    char ATIVO;
-}Investimento;
-
-
-//Tipo de dados para transação
-typedef struct Transacao{
-    int IdCliente;
-    Cliente cliente;
-    Investimento investimento;
-    Data DataAplicacao;
-    float ValorAplicacao;
-    Data DataResgate;
-    float ValorResgate;
-}Trasacao;
 
 //Função conta dígitos
 int NumeroDigitos(long int num){ //contar quantos digitos têm
@@ -71,3 +36,25 @@ int ValidarTelefone(Telefone var2){
         } 
     }
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Funções especificas
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Função de cadastro
+
+void Cadastro() {
+    int i = 0;
+    printf("Insira o número do cliente: ");
+    scanf("%d", &i);
+    printf("Insina o nome do cliente: ");
+    fgets(user[i].Nome, 50, stdin);
+    printf("Insira o CPF do cliente: ");
+    fgets(user[i].CPF, 15, stdin);
+    printf("Insira o DDD do Telefone do cliente: ");
+    scanf("%d", &user[i].Fone.DDD);
+    printf("Insira o Telefone do cliente: ");
+    scanf("%d", &user[i].Fone.numero);
+}
+
