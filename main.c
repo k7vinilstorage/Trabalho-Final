@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 typedef struct Data{
     int dia;
     int mes;
