@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "Dados.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,7 +47,7 @@ int ValidarTelefone(Telefone var2){
 
 void Cadastro() {
     int i = 0;
-    printf("Insira o número do cliente: ");
+    printf("Insira o código do cliente: ");
     scanf("%d", &i);
     printf("Insina o nome do cliente: ");
     fgets(user[i].Nome, 50, stdin);

@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-
 //Tipo de dados para Data
 typedef struct Data{
     int dia;
