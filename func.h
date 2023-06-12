@@ -36,8 +36,6 @@ typedef struct Transacao{
 int NumeroDigitos(long int num){ //contar quantos digitos têm
     int digitos=0;
     
-    
-    
 }
 
 int ValidarData(Data var1){ //var1 é a variavel-parametro
@@ -47,7 +45,7 @@ int ValidarData(Data var1){ //var1 é a variavel-parametro
     if(var1.mes<1 || var1.mes>12){
         return 0;
     }
-    if(var1.ano<1900 || var1.ano>***Criar uma struct com a data atual***){
+    if(var1.ano<1900 || var1.ano>2023){
         return 0;
     }
     
