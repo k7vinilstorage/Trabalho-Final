@@ -1,14 +1,20 @@
+#include <stdio.h>
+#include <string.h>
+
+//Tipo de dados para Data
 typedef struct Data{
     int dia;
     int mes;
     int ano;
 }Data;
 
+//Tipo de dados para telefone
 typedef struct Telefone{
     int DDD;
     long int numero; //perguntar ao prof se nao pode substituir por uma string de vetor ou mesmo uma string numerica
 }Telefone;
 
+//Tipo de dados para cliente
 typedef struct Cliente{
     char Nome[50];
     char CPF[15];
@@ -16,6 +22,7 @@ typedef struct Cliente{
     Data Nascimento;
 }Cliente;
 
+//Tipo de dados para Investimento
 typedef struct Investimento{
     int TipoAplicacao;
     char BancoEmissor [100];
@@ -23,6 +30,8 @@ typedef struct Investimento{
     char ATIVO;
 }Investimento;
 
+
+//Tipo de dados para transação
 typedef struct Transacao{
     int IdCliente;
     Cliente cliente;
@@ -33,11 +42,13 @@ typedef struct Transacao{
     float ValorResgate;
 }Trasacao;
 
+//Função conta dígitos
 int NumeroDigitos(long int num){ //contar quantos digitos têm
     int digitos=0;
     
 }
 
+//Função Validadora de Data
 int ValidarData(Data var1){ //var1 é a variavel-parametro
     if(var1.dia<1 || var1.dia>30){
         return 0;
@@ -52,6 +63,7 @@ int ValidarData(Data var1){ //var1 é a variavel-parametro
     return 1; //Se funcionar
 }
 
+//Validador de telefone
 int ValidarTelefone(Telefone var2){
     if(var2.DDD<11 || var2.DDD>91){
         return 0;
