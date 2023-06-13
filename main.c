@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "func.h"
-//#include "Dados.h"
 
 int main() {
 
