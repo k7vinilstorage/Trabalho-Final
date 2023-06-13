@@ -11,14 +11,6 @@ typedef struct Telefone{
     long int numero; //perguntar ao prof se nao pode substituir por uma string de vetor ou mesmo uma string numerica
 }Telefone;
 
-//Tipo de dados para cliente
-typedef struct Cliente{
-    char Nome[50];
-    char CPF[15];
-    Telefone Fone;
-    Data Nascimento;
-}Cliente;
-
 //Tipo de dados para Investimento
 typedef struct Investimento{
     int TipoAplicacao;
@@ -26,6 +18,15 @@ typedef struct Investimento{
     float taxa;
     char ATIVO;
 }Investimento;
+
+//Tipo de dados para cliente
+typedef struct Cliente{
+    char Nome[50];
+    char CPF[15];
+    Telefone Fone;
+    Data Nascimento;
+    Investimento investimento_cadastrado[10];
+}Cliente;
 
 
 //Tipo de dados para transação

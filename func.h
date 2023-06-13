@@ -57,22 +57,46 @@ void Cadastro() {
     scanf("%d", &user[c_count].Fone.DDD);
     printf("Insira o Telefone do cliente: ");
     scanf("%d", &user[c_count].Fone.numero);
-    printf("Cliente cadastrado com código %d\n\n", user[c_count].Nome, c_count);
+    getchar();
+    system("clear");
+    printf("Cliente cadastrado!!\n");
+    printf("Pressione qualquer tecla para continuar");  
+    getchar();
     c_count++;
 }
 
-void show_cadastro() {
-    int i = 0;
-    printf("Insira o código do cliente: ");
-    scanf("%d", &i);
-    printf("\nCódigo do Cliente: %d\n", i);
-    printf("Nome do Cliente: %s", user[i].Nome);
-    printf("CPF do Cliente: %s\n", user[i].CPF);
-    printf("Telefne do Cliente: (%d) %d\n\n", user[i].Fone.DDD, user[i].Fone.numero);
+void list_cliente() {
+    
 }
 
-void list_cliente() {
+void show_cadastro() {
+    char cpf[15];
+    int cpf_cmp = 1;
+    int i = 0;
+    getchar();
+    printf("Insira o CPF do cliente: ");
+    fgets(cpf, 15, stdin);
 
-    
+    while(cpf_cmp != 0 || i == 99) {
+        cpf_cmp = strcmp(user[i].CPF, cpf);
+        i++;
+    }
+
+    i--;
+
+    if(cpf_cmp == 0) {
+        system("clear");
+        printf("Nome do Cliente: %s", user[i].Nome);
+        printf("CPF do Cliente: %s", user[i].CPF);
+        printf("Telefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
+        printf("Pressione qualquer tecla para continuar\n"); 
+        getchar();
+    }
+    else {
+        system("clear");
+        printf("Cliente não cadastrado!\n");
+        printf("Pressione qualquer tecla para continuar\n");  
+        getchar();
+    }
 }
 

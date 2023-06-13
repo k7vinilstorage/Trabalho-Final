@@ -7,13 +7,14 @@ int main() {
     int op = 0;
 
     while (1) {
+        system("clear");
         printf("Bem vindo a central de investimentos!!\n");
         printf("1 - Cadastrar Cliente\n");
         printf("2 - Apresentar Cadastro\n");
         printf("3 - Listar clientes\n");
-        printf("4 - \n");
-        printf("5 - \n");
-        printf("6 - \n");
+        printf("4 - Investimento LCI/LCA\n");
+        printf("5 - Investimento CDB\n");
+        printf("6 - Investimento Fundos\n");
         printf("7 - \n");
         printf("8 - \n");
         printf("9 - \n");
@@ -28,7 +29,7 @@ int main() {
             show_cadastro();
         }
         else if(op == 3) {
-            list_clientes();
+            list_cliente();
         }
         else if(op == 4) {
 
