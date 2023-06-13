@@ -1,77 +1,51 @@
 #include <stdio.h>
 #include <string.h>
+#include "func.h"
 
+int main() {
 
+    int op = 0;
 
-typedef struct Data{
-    int dia;
-    int mes;
-    int ano;
-}Data;
+    printf("Bem vindo a central de investimentos!!\n");
+    printf("1 - Cadastrar Cliente\n");
+    printf("2 - \n");
+    printf("3 - \n");
+    printf("4 - \n");
+    printf("5 - \n");
+    printf("6 - \n");
+    printf("7 - \n");
+    printf("8 - \n");
+    printf("9 - \n");
+    printf("0 - Sair\n");
+    printf("Escolha uma opção (0 - 9): ");
+    scanf("%d", &op);
 
-typedef struct Telefone{
-    int DDD;
-    long int numero; //perguntar ao prof se nao pode substituir por uma string de vetor ou mesmo uma string numerica
-}Telefone;
-
-typedef struct Cliente{
-    char Nome[50];
-    char CPF[15];
-    Telefone Fone;
-    Data Nascimento;
-}Cliente;
-
-typedef struct Investimento{
-    int TipoAplicacao;
-    char BancoEmissor [100];
-    float taxa;
-    char ATIVO;
-}Investimento;
-
-typedef struct Transacao{
-    int IdCliente;
-    Cliente cliente;
-    Investimento investimento;
-    Data DataAplicacao;
-    float ValorAplicacao;
-    Data DataResgate;
-    float ValorResgate;
-}Trasacao;
-
-int NumeroDigitos(long int num){ //contar quantos digitos têm
-    int digitos=0;
-    
-    
-    
-}
-
-int ValidarData(Data var1){ //var1 é a variavel-parametro
-    if(var1.dia<1 || var1.dia>30){
-        return 0;
+    if(op == 1) {
+        Cadastro();
     }
-    if(var1.mes<1 || var1.mes>12){
-        return 0;
+    else if(op == 2) {
+
     }
-    if(var1.ano<1900 || var1.ano>***Criar uma struct com a data atual***){
-        return 0;
+    else if(op == 3) {
+
     }
-    
-    return 1; //Se funcionar
-}
+    else if(op == 4) {
 
-// Função para validar telefone
-int ValidarTelefone(Telefone var2){
-    if (var2.DDD >= 11 && var2.DDD <= 91) {
-        if (var2.numero >= 900000000 && var2.numero <= 999999999 || var2.numero <= 99999999 ) {
-            return 1;
-        } 
     }
-}
+    else if(op == 5) {
 
-int main()
-{
+    }
+    else if(op == 6) {
 
+    }
+    else if(op == 7) {
 
+    }
+    else if(op == 8) {
+
+    }
+    else if(op == 9) {
+
+    }
     return 0;
 }
-
