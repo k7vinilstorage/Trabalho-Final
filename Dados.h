@@ -39,4 +39,6 @@ typedef struct Transacao{
     float ValorResgate;
 }Trasacao;
 
+int c_count = 0;
+
 Cliente user[100];

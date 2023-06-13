@@ -39,6 +39,8 @@ int ValidarTelefone(Telefone var2){
 }
 
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Funções especificas
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,16 +48,31 @@ int ValidarTelefone(Telefone var2){
 //Função de cadastro
 
 void Cadastro() {
+    getchar();
+    printf("Insina o nome do cliente: ");
+    fgets(user[c_count].Nome, 50, stdin);
+    printf("Insira o CPF do cliente: ");
+    fgets(user[c_count].CPF, 15, stdin);
+    printf("Insira o DDD do Telefone do cliente: ");
+    scanf("%d", &user[c_count].Fone.DDD);
+    printf("Insira o Telefone do cliente: ");
+    scanf("%d", &user[c_count].Fone.numero);
+    printf("Cliente cadastrado com código %d\n\n", user[c_count].Nome, c_count);
+    c_count++;
+}
+
+void show_cadastro() {
     int i = 0;
     printf("Insira o código do cliente: ");
     scanf("%d", &i);
-    printf("Insina o nome do cliente: ");
-    fgets(user[i].Nome, 50, stdin);
-    printf("Insira o CPF do cliente: ");
-    fgets(user[i].CPF, 15, stdin);
-    printf("Insira o DDD do Telefone do cliente: ");
-    scanf("%d", &user[i].Fone.DDD);
-    printf("Insira o Telefone do cliente: ");
-    scanf("%d", &user[i].Fone.numero);
+    printf("\nCódigo do Cliente: %d\n", i);
+    printf("Nome do Cliente: %s", user[i].Nome);
+    printf("CPF do Cliente: %s\n", user[i].CPF);
+    printf("Telefne do Cliente: (%d) %d\n\n", user[i].Fone.DDD, user[i].Fone.numero);
+}
+
+void list_cliente() {
+
+    
 }
 
