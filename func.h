@@ -109,3 +109,70 @@ void show_cadastro() {
         getchar();
     }
 }
+
+void LCI_LCA() {
+        system("clear");
+        getchar();
+        inv[inv_count].TipoAplicacao = 1;
+        printf("Insira o banco emissor: ");
+        fgets(inv[inv_count].BancoEmissor, 100, stdin);
+        printf("Insira a taxa: ");
+        scanf("%f", &inv[inv_count].taxa);
+        getchar();
+        printf("Ativo (S/N): ");
+        scanf("%c", &inv[inv_count].ATIVO);
+        getchar();
+        system("clear");
+        printf("Investimento cadastrado!\n\n");
+        printf("Pressione qualquer tecla para continuar\n");  
+        getchar();
+        inv_count++;
+    }
+
+    void CDB() {
+        system("clear");
+        getchar();
+        inv[inv_count].TipoAplicacao = 2;
+        printf("Insira o banco emissor: ");
+        fgets(inv[inv_count].BancoEmissor, 100, stdin);
+        printf("Insira a taxa: ");
+        scanf("%f", &inv[inv_count].taxa);
+        getchar();
+        printf("Ativo (S/N): ");
+        scanf("%c", &inv[inv_count].ATIVO);
+        getchar();
+        system("clear");
+        printf("Investimento cadastrado!\n\n");
+        printf("Pressione qualquer tecla para continuar\n");  
+        getchar();
+        inv_count++;
+    }
+
+    void Fundos() {
+        system("clear");
+        getchar();
+        inv[inv_count].TipoAplicacao = 3;
+        printf("Insira o banco emissor: ");
+        fgets(inv[inv_count].BancoEmissor, 100, stdin);
+        printf("Insira a taxa: ");
+        scanf("%f", &inv[inv_count].taxa);
+        getchar();
+        printf("Ativo (S/N): ");
+        scanf("%c", &inv[inv_count].ATIVO);
+        getchar();
+        system("clear");
+        printf("Investimento cadastrado!\n\n");
+        printf("Pressione qualquer tecla para continuar\n");  
+        getchar();
+        inv_count++;
+    }
+
+    void list_inv() {
+        int i = 0;
+        for(i = 0; i < inv_count; i++) {
+            if(inv[i].TipoAplicacao == 1) {
+                
+            }
+            printf("");
+        }
+    }

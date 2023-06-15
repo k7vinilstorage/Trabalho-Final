@@ -25,7 +25,6 @@ typedef struct Cliente{
     char CPF[15];
     Telefone Fone;
     Data Nascimento;
-    Investimento investimento_cadastrado[10];
 }Cliente;
 
 
@@ -41,5 +40,8 @@ typedef struct Transacao{
 }Trasacao;
 
 int c_count = 0;
+int inv_count = 0;
 
 Cliente user[100];
+
+Investimento inv[10];

@@ -15,7 +15,7 @@ int main() {
         printf("4 - Investimento LCI/LCA\n");
         printf("5 - Investimento CDB\n");
         printf("6 - Investimento Fundos\n");
-        printf("7 - \n");
+        printf("7 - Criar Transação\n");
         printf("8 - \n");
         printf("9 - \n");
         printf("0 - Sair\n");
@@ -32,13 +32,13 @@ int main() {
             list_cliente();
         }
         else if(op == 4) {
-
+            LCI_LCA();
         }
         else if(op == 5) {
-
+            CDB();
         }
         else if(op == 6) {
-
+            Fundos();
         }
         else if(op == 7) {
 
