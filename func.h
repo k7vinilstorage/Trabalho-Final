@@ -66,7 +66,17 @@ void Cadastro() {
 }
 
 void list_cliente() {
-    
+    getchar();
+    int i = 0;
+    system("clear");
+
+    for(i = 0; i < c_count; i++) {
+        printf("%d:", i);
+        printf("\nNome do Cliente: %s", user[i].Nome);
+        printf("CPF do Cliente: %s\n", user[i].CPF);
+    }
+    printf("Pressione qualquer tecla para continuar");  
+    getchar();
 }
 
 void show_cadastro() {
@@ -99,4 +109,3 @@ void show_cadastro() {
         getchar();
     }
 }
-
