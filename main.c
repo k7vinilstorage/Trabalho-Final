@@ -41,13 +41,16 @@ int main() {
             Fundos();
         }
         else if(op == 7) {
-
+            aplica();
         }
         else if(op == 8) {
 
         }
         else if(op == 9) {
 
+        }
+        else if(op == 0) {
+            break;
         }
     }
     return 0;

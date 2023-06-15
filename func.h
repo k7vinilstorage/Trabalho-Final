@@ -167,12 +167,23 @@ void LCI_LCA() {
         inv_count++;
     }
 
-    void list_inv() {
+    void aplica() {
         int i = 0;
         for(i = 0; i < inv_count; i++) {
             if(inv[i].TipoAplicacao == 1) {
-                
+                printf("Aplicação LCI/LCA\n");
             }
-            printf("");
+            else if(inv[i].TipoAplicacao == 2) {
+                printf("Aplicação CDB\n");
+            }
+            else if(inv[i].TipoAplicacao == 3) {
+                printf("Aplicação Fundos\n");
+            }
+            printf("Banco emissor: %s", inv[i].BancoEmissor);
+            printf("Taxa: %.2f\n", inv[i].taxa);
+            printf("Ativo: %c\n", inv[i].ATIVO);
+            printf("\n");
         }
+        getchar();
+        getchar();
     }
