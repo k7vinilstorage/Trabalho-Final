@@ -16,7 +16,7 @@ int main() {
         printf("5 - Investimento CDB\n");
         printf("6 - Investimento Fundos\n");
         printf("7 - Criar Transação\n");
-        printf("8 - \n");
+        printf("8 - Listar aplicações\n");
         printf("9 - \n");
         printf("0 - Sair\n");
         printf("Escolha uma opção (0 - 9): ");
@@ -41,10 +41,10 @@ int main() {
             Fundos();
         }
         else if(op == 7) {
-            aplica();
+            aplicacao();
         }
         else if(op == 8) {
-
+            list_aplicacao();
         }
         else if(op == 9) {
 

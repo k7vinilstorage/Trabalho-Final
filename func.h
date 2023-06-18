@@ -169,6 +169,32 @@ void show_cadastro() {
     }
 }
 
+int get_cliente() {
+    int k = 0;
+    int cpf_cmp = 1;
+    char cpf[15];
+    getchar();
+    printf("Insira o CPF do cliente: ");
+    fgets(cpf, 15, stdin);
+    while(cpf_cmp != 0 || k == 99) {
+        cpf_cmp = strcmp(user[k].CPF, cpf);
+        k++;
+    }
+    k--;
+    return k;
+}
+
+int get_cliente2(char cpf[15]) {
+    int k = 0;
+    int cpf_cmp = 1;
+    while(cpf_cmp != 0 || k == 99) {
+        cpf_cmp = strcmp(user[k].CPF, cpf);
+        k++;
+    }
+    k--;
+    return k;
+}
+
 void LCI_LCA() {
         system("clear");
         getchar();
@@ -226,25 +252,94 @@ void LCI_LCA() {
         inv_count++;
     }
 
-    void aplica() {
+    void aplicacao() {
+        system("clear");
+        int k = 0;
+        int x = 0;
         int i = 0;
+
         for(i = 0; i < inv_count; i++) {
             if(inv[i].TipoAplicacao == 1) {
-                printf("Aplicação LCI/LCA\n");
+                printf("%d)\nAplicação LCI/LCA\n", i);
             }
             else if(inv[i].TipoAplicacao == 2) {
-                printf("Aplicação CDB\n");
+                printf("%d)\nAplicação CDB\n", i);
             }
             else if(inv[i].TipoAplicacao == 3) {
-                printf("Aplicação Fundos\\n");
+                printf("%d)\nAplicação Fundos\n", i);
             }
             printf("Banco emissor: %s", inv[i].BancoEmissor);
             printf("Taxa: %.2f\n", inv[i].taxa);
             printf("Ativo: %c\n", inv[i].ATIVO);
             printf("\n");
         }
+
+        printf("Insira o tipo de aplicação (0 - %d): ", (inv_count - 1));
+        scanf("%d", &x);
+        aplica[id].ID_transacao = id;
+
+        k = get_cliente();
+
+        aplica[id].cliente = user[k];
+        aplica[id].investimento = inv[x];
+
+        //Adicionar data
+
+        printf("Insira o valor da aplicação: ");
+        scanf("%f", &aplica[id].ValorAplicacao);
+
+        printf("Insira a data de Resgate (dd/mm/aa): ");
+        scanf("%d/%d/%d", &aplica[id].DataResgate.dia, &aplica[id].DataResgate.mes, &aplica[id].DataResgate.ano);
+
+        aplica[id].ValorResgate = 0.00;
+
+        id++;
         getchar();
+
+        system("clear");
+
+        printf("Aplicação concluida!\n");
         getchar();
+        
     }
+
+void list_aplicacao() {
+    system("clear");
+    int id[30];
+    int j = 0;
+    int k = 0;
+    int i = 0;
+    int l = 0;
+    int cpf_cmp = 1;
+    char cpf[15];
+    getchar();
+    printf("Insira o CPF do cliente: ");
+    fgets(cpf, 15, stdin);
+
+    j = get_cliente2(cpf);
+
+    printf("Nome do Cliente: %s\n", user[j].Nome);
+
+    while(k < 99) {
+        cpf_cmp = strcmp(aplica[k].cliente.CPF, cpf);
+        if(cpf_cmp == 0) {
+            id[i] = k;
+            i++;
+        }
+        k++;
+    }
+
+    for(l = 0; l < i; l++) {
+        printf("Id de transação: %d\n", aplica[id[l]].ID_transacao);
+        printf("Tipo de aplicação: %d\n", aplica[id[l]].investimento.TipoAplicacao);
+        printf("Banco Emissor: %s", aplica[id[l]].investimento.BancoEmissor);
+        printf("Taxa: %.2f\n", aplica[id[l]].investimento.taxa);
+        printf("Valor de resgate: %.2f\n", aplica[id[l]].ValorResgate);
+        printf("\n");
+    }
+    getchar();
+    printf("Pressione qualquer tecla para continuar\n");
+    getchar();
+}
 
     
