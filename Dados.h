@@ -41,6 +41,7 @@ typedef struct Transacao{
 
 int c_count = 0;
 int inv_count = 0;
+int cpf_test = 1;
 
 Cliente user[100];
 

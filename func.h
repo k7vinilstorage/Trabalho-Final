@@ -30,12 +30,13 @@ int ValidarData(Data var1){ //var1 é a variavel-parametro
 }
 
 //Função validadora de Telefone
-int ValidarTelefone(Telefone var2){
-    if (var2.DDD >= 11 && var2.DDD <= 91) {
-        if (var2.numero >= 900000000 && var2.numero <= 999999999 || var2.numero <= 99999999 ) {
+int ValidarTelefone(int DDD, long int numero){
+    if (DDD >= 11 && DDD <= 91) {
+        if (numero >= 900000000 && numero <= 999999999 || numero <= 99999999 ) {
             return 1;
         } 
     }
+    return 0;
 }
 
 
@@ -47,22 +48,79 @@ int ValidarTelefone(Telefone var2){
 
 //Função de cadastro
 
+int validar_cpf(char cpf[15]){
+    int ncpf[11]={0,0,0,0,0,0,0,0,0,0,0};
+    int num=0;
+    for(int i=0; i<3; i++){
+        ncpf[i]=cpf[i]-48;
+    }
+    for(int i=4; i<7; i++){
+        ncpf[i-1]=cpf[i]-48;
+    }
+    for(int i=8; i<11; i++){
+        ncpf[i-2]=cpf[i]-48;
+    }
+    for (int i=0; i<9; i++){
+        num+=(ncpf[i])*(i+1);
+    }
+    num=num%11;
+    if(num<2){
+        num=0;
+    }
+    if(num!=cpf[12]-48){
+        return 0;
+    } else{
+        ncpf[9]=num;
+        num=0;
+        for (int i=0; i<9; i++){
+            num+=(ncpf[i+1])*(10-i);
+        }
+        num=num%11;
+        num=11-num;
+        if(num!=cpf[13]-48){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+}
+
 void Cadastro() {
-    getchar();
-    printf("Insina o nome do cliente: ");
-    fgets(user[c_count].Nome, 50, stdin);
-    printf("Insira o CPF do cliente: ");
-    fgets(user[c_count].CPF, 15, stdin);
-    printf("Insira o DDD do Telefone do cliente: ");
-    scanf("%d", &user[c_count].Fone.DDD);
-    printf("Insira o Telefone do cliente: ");
-    scanf("%d", &user[c_count].Fone.numero);
-    getchar();
-    system("clear");
-    printf("Cliente cadastrado!!\n");
-    printf("Pressione qualquer tecla para continuar");  
-    getchar();
-    c_count++;
+    int x = 0;
+    int i = 0;
+    while(i < 1) {
+        getchar();
+        printf("Insina o nome do cliente: ");
+        fgets(user[c_count].Nome, 50, stdin);
+        for(x = 0; x < 1; x) {
+            printf("Insira o CPF do cliente: ");
+            fgets(user[c_count].CPF, 15, stdin);
+            x = validar_cpf(user[c_count].CPF);
+            if(x == 0) {
+                printf("CPF inválido!\n");
+            }
+            getchar();
+        }
+
+        for(x = 0; x < 1; x) {
+            printf("Insira o DDD do Telefone do cliente: ");
+            scanf("%d", &user[c_count].Fone.DDD);
+            printf("Insira o Telefone do cliente: ");
+            scanf("%d", &user[c_count].Fone.numero);
+            x = ValidarTelefone(user[c_count].Fone.DDD, user[c_count].Fone.numero);
+            if(x == 0) {
+                printf("Telefone inválido!\n");
+            }
+            getchar();
+        }
+
+        system("clear");
+        printf("Cliente cadastrado!!\n");
+        printf("Pressione qualquer tecla para continuar");  
+        getchar();
+        c_count++;
+        i++;
+    }
 }
 
 void list_cliente() {
@@ -98,8 +156,9 @@ void show_cadastro() {
         system("clear");
         printf("Nome do Cliente: %s", user[i].Nome);
         printf("CPF do Cliente: %s", user[i].CPF);
-        printf("Telefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
-        printf("Pressione qualquer tecla para continuar\n"); 
+        printf("\nTelefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
+        printf("\nPressione qualquer tecla para continuar\n"); 
+        getchar();
         getchar();
     }
     else {
@@ -177,7 +236,7 @@ void LCI_LCA() {
                 printf("Aplicação CDB\n");
             }
             else if(inv[i].TipoAplicacao == 3) {
-                printf("Aplicação Fundos\n");
+                printf("Aplicação Fundos\\n");
             }
             printf("Banco emissor: %s", inv[i].BancoEmissor);
             printf("Taxa: %.2f\n", inv[i].taxa);
@@ -187,3 +246,5 @@ void LCI_LCA() {
         getchar();
         getchar();
     }
+
+    
