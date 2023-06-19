@@ -331,7 +331,15 @@ void list_aplicacao() {
 
     for(l = 0; l < i; l++) {
         printf("Id de transação: %d\n", aplica[id[l]].ID_transacao);
-        printf("Tipo de aplicação: %d\n", aplica[id[l]].investimento.TipoAplicacao);
+        if(aplica[id[l]].investimento.TipoAplicacao = 1) {
+            printf("Tipo de aplicação: LCI/LCA\n");
+        }
+        else if(aplica[id[l]].investimento.TipoAplicacao = 2) {
+            printf("Tipo de aplicação: CDB\n");
+        }
+        else if(aplica[id[l]].investimento.TipoAplicacao = 3) {
+            printf("Tipo de aplicação: CDB\n");
+        }
         printf("Banco Emissor: %s", aplica[id[l]].investimento.BancoEmissor);
         printf("Taxa: %.2f\n", aplica[id[l]].investimento.taxa);
         printf("Valor de resgate: %.2f\n", aplica[id[l]].ValorResgate);
