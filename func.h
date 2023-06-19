@@ -122,7 +122,7 @@ void Cadastro() {
         i++;
     }
 }
-
+// Listar cliente
 void list_cliente() {
     getchar();
     int i = 0;
@@ -136,7 +136,7 @@ void list_cliente() {
     printf("Pressione qualquer tecla para continuar");  
     getchar();
 }
-
+//Encontrar cliente via CPF
 void show_cadastro() {
     char cpf[15];
     int cpf_cmp = 1;
@@ -194,7 +194,7 @@ int get_cliente2(char cpf[15]) {
     k--;
     return k;
 }
-
+//Cadastrar opção de LCI/LCA
 void LCI_LCA() {
         system("clear");
         getchar();
@@ -213,7 +213,7 @@ void LCI_LCA() {
         getchar();
         inv_count++;
     }
-
+//Cadastrar opção de CDB
     void CDB() {
         system("clear");
         getchar();
@@ -232,7 +232,7 @@ void LCI_LCA() {
         getchar();
         inv_count++;
     }
-
+//Cadastrar opção de fundos
     void Fundos() {
         system("clear");
         getchar();
@@ -251,7 +251,7 @@ void LCI_LCA() {
         getchar();
         inv_count++;
     }
-
+// Fazer aplicação
     void aplicacao() {
         system("clear");
         int k = 0;
@@ -302,7 +302,7 @@ void LCI_LCA() {
         getchar();
         
     }
-
+//Mostrar as aplicações do cliente
 void list_aplicacao() {
     system("clear");
     int id[30];
