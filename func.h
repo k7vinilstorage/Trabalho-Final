@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 #include "Dados.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,6 +38,18 @@ int ValidarTelefone(int DDD, long int numero){
         } 
     }
     return 0;
+}
+
+//Função de tempo
+int DiferencaDatas(Data data_inicial, Data data_final){
+    int diast1;
+    int diast2;
+    int dif;
+
+    diast1 = data_inicial.dia + data_inicial.mes * 30 + data_inicial.ano * 365;
+    diast2 = data_final.dia + data_final.mes * 30 + data_final.ano * 365;
+    dif = diast2 - diast1;
+    return dif;
 }
 
 
@@ -283,12 +296,13 @@ void LCI_LCA() {
         aplica[id].cliente = user[k];
         aplica[id].investimento = inv[x];
 
-        //Adicionar data
+        printf("Insira a data da aplicação (dd/mm/aa): ");
+        scanf("%d/%d/%d", &aplica[id].DataAplicacao.dia, &aplica[id].DataAplicacao.mes, &aplica[id].DataAplicacao.ano);
 
         printf("Insira o valor da aplicação: ");
         scanf("%f", &aplica[id].ValorAplicacao);
 
-        printf("Insira a data de Resgate (dd/mm/aa): ");
+        printf("Insira a data de resgate (dd/mm/aa): ");
         scanf("%d/%d/%d", &aplica[id].DataResgate.dia, &aplica[id].DataResgate.mes, &aplica[id].DataResgate.ano);
 
         aplica[id].ValorResgate = 0.00;
@@ -303,7 +317,7 @@ void LCI_LCA() {
         
     }
 //Mostrar as aplicações do cliente
-void list_aplicacao() {
+void list_aplicacacoes() {
     system("clear");
     int id[30];
     int j = 0;
@@ -333,6 +347,7 @@ void list_aplicacao() {
         printf("Id de transação: %d\n", aplica[id[l]].ID_transacao);
         if(aplica[id[l]].investimento.TipoAplicacao = 1) {
             printf("Tipo de aplicação: LCI/LCA\n");
+            //aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow (aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
         }
         else if(aplica[id[l]].investimento.TipoAplicacao = 2) {
             printf("Tipo de aplicação: CDB\n");
@@ -348,6 +363,29 @@ void list_aplicacao() {
     getchar();
     printf("Pressione qualquer tecla para continuar\n");
     getchar();
+}
+
+void edit_aplicacao() {
+    char a;
+    int i = 0;
+
+    getchar();
+    system("clear");
+
+    printf("Insira o Id da aplicação: ");
+    scanf("%d", &i);
+
+    printf("Você deseja alterar a data de resgate ou aumentar o investimento? (D - A): ");
+    scanf("%c", &a);
+
+    if (a == 'D') {
+        printf("Insira a nova data de resgate: ");
+        scanf("%d/%d/%d", &aplica[id].DataResgate.dia, &aplica[id].DataResgate.mes, &aplica[id].DataResgate.ano);
+    }
+    else if (a == 'A') {
+
+    }
+
 }
 
     

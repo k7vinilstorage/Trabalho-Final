@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "func.h"
 
 int main() {
@@ -44,10 +45,10 @@ int main() {
             aplicacao();
         }
         else if(op == 8) {
-            list_aplicacao();
+            edit_aplicacao();
         }
         else if(op == 9) {
-
+            list_aplicacacoes();
         }
         else if(op == 0) {
             break;
