@@ -52,6 +52,15 @@ int DiferencaDatas(Data data_inicial, Data data_final){
     return dif;
 }
 
+//Função de conversão de taxa
+float tax_conv(float x) {
+    float TAXA_CONV, TAXA_TEMP;
+    TAXA_TEMP = x/100;
+    TAXA_CONV = pow((1 + TAXA_TEMP), 0.002739);
+    TAXA_CONV = TAXA_CONV - 1;
+    TAXA_CONV = TAXA_CONV * 100;
+    return TAXA_CONV;
+}
 
 
 
@@ -209,13 +218,15 @@ int get_cliente2(char cpf[15]) {
 }
 //Cadastrar opção de LCI/LCA
 void LCI_LCA() {
+        float t = 0;
         system("clear");
         getchar();
         inv[inv_count].TipoAplicacao = 1;
         printf("Insira o banco emissor: ");
         fgets(inv[inv_count].BancoEmissor, 100, stdin);
         printf("Insira a taxa: ");
-        scanf("%f", &inv[inv_count].taxa);
+        scanf("%f", &t);
+        inv[inv_count].taxa = tax_conv(t);
         getchar();
         printf("Ativo (S/N): ");
         scanf("%c", &inv[inv_count].ATIVO);
@@ -228,13 +239,15 @@ void LCI_LCA() {
     }
 //Cadastrar opção de CDB
     void CDB() {
+        float t = 0;
         system("clear");
         getchar();
         inv[inv_count].TipoAplicacao = 2;
         printf("Insira o banco emissor: ");
         fgets(inv[inv_count].BancoEmissor, 100, stdin);
         printf("Insira a taxa: ");
-        scanf("%f", &inv[inv_count].taxa);
+        scanf("%f", &t);
+        inv[inv_count].taxa = tax_conv(t);
         getchar();
         printf("Ativo (S/N): ");
         scanf("%c", &inv[inv_count].ATIVO);
@@ -247,13 +260,15 @@ void LCI_LCA() {
     }
 //Cadastrar opção de fundos
     void Fundos() {
+        float t = 0;
         system("clear");
         getchar();
         inv[inv_count].TipoAplicacao = 3;
         printf("Insira o banco emissor: ");
         fgets(inv[inv_count].BancoEmissor, 100, stdin);
         printf("Insira a taxa: ");
-        scanf("%f", &inv[inv_count].taxa);
+        scanf("%f", &t);
+        inv[inv_count].taxa = tax_conv(t);
         getchar();
         printf("Ativo (S/N): ");
         scanf("%c", &inv[inv_count].ATIVO);
@@ -282,7 +297,7 @@ void LCI_LCA() {
                 printf("%d)\nAplicação Fundos\n", i);
             }
             printf("Banco emissor: %s", inv[i].BancoEmissor);
-            printf("Taxa: %.2f\n", inv[i].taxa);
+            printf("Taxa: %.3f%% ao mês\n", inv[i].taxa);
             printf("Ativo: %c\n", inv[i].ATIVO);
             printf("\n");
         }
@@ -316,6 +331,7 @@ void LCI_LCA() {
         getchar();
         
     }
+
 //Mostrar as aplicações do cliente
 void list_aplicacacoes() {
     system("clear");
@@ -347,7 +363,7 @@ void list_aplicacacoes() {
         printf("Id de transação: %d\n", aplica[id[l]].ID_transacao);
         if(aplica[id[l]].investimento.TipoAplicacao = 1) {
             printf("Tipo de aplicação: LCI/LCA\n");
-            //aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow (aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+            aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
         }
         else if(aplica[id[l]].investimento.TipoAplicacao = 2) {
             printf("Tipo de aplicação: CDB\n");
@@ -356,7 +372,7 @@ void list_aplicacacoes() {
             printf("Tipo de aplicação: CDB\n");
         }
         printf("Banco Emissor: %s", aplica[id[l]].investimento.BancoEmissor);
-        printf("Taxa: %.2f\n", aplica[id[l]].investimento.taxa);
+        printf("Taxa: %.2f%%\n", aplica[id[l]].investimento.taxa);
         printf("Valor de resgate: %.2f\n", aplica[id[l]].ValorResgate);
         printf("\n");
     }
@@ -375,6 +391,7 @@ void edit_aplicacao() {
     printf("Insira o Id da aplicação: ");
     scanf("%d", &i);
 
+    getchar();
     printf("Você deseja alterar a data de resgate ou aumentar o investimento? (D - A): ");
     scanf("%c", &a);
 

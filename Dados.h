@@ -27,8 +27,7 @@ typedef struct Cliente{
     Data Nascimento;
 }Cliente;
 
-
-//Tipo de dados para transação
+//Tipo de dado para transação
 typedef struct Transacao{
     int ID_transacao;
     Cliente cliente;

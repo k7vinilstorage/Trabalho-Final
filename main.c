@@ -45,10 +45,10 @@ int main() {
             aplicacao();
         }
         else if(op == 8) {
-            edit_aplicacao();
+            list_aplicacacoes();
         }
         else if(op == 9) {
-            list_aplicacacoes();
+            edit_aplicacao();
         }
         else if(op == 0) {
             break;
