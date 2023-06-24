@@ -62,6 +62,36 @@ float tax_conv(float x) {
     return TAXA_CONV;
 }
 
+//Caluladora de imposto (roubo)
+float IRPF (float valor, float tax, int TEMPO) {
+
+    float TEMPlucro, IRPF, pow_;
+
+    if (TEMPO <= 180) {
+        pow_ = pow(tax, TEMPO);
+        TEMPlucro = ((valor * pow_) - valor);
+        IRPF = TEMPlucro * 0.225;
+        }
+    if (TEMPO >= 181 && TEMPO <= 360) {
+        pow_ = pow(tax, TEMPO);
+        TEMPlucro = ((valor * pow_) - valor);
+        IRPF = TEMPlucro * 0.2;
+        }
+    if (TEMPO >= 361 && TEMPO <= 720) {
+        pow_ = pow(tax, TEMPO);
+        TEMPlucro = ((valor * pow_) - valor);
+        IRPF = TEMPlucro * 0.175;
+        }
+    if (TEMPO >= 721) {
+        pow_ = pow(tax, TEMPO);
+        TEMPlucro = ((valor * pow_) - valor);
+        IRPF = TEMPlucro * 0.15;
+        }
+
+
+    return IRPF;
+
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -340,6 +370,7 @@ void list_aplicacacoes() {
     int k = 0;
     int i = 0;
     int l = 0;
+    float imposto = 0;
     int cpf_cmp = 1;
     char cpf[15];
     getchar();
@@ -361,14 +392,17 @@ void list_aplicacacoes() {
 
     for(l = 0; l < i; l++) {
         printf("Id de transação: %d\n", aplica[id[l]].ID_transacao);
-        if(aplica[id[l]].investimento.TipoAplicacao = 1) {
+        if(aplica[id[l]].investimento.TipoAplicacao == 1) {
             printf("Tipo de aplicação: LCI/LCA\n");
             aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
         }
-        else if(aplica[id[l]].investimento.TipoAplicacao = 2) {
+        else if(aplica[id[l]].investimento.TipoAplicacao == 2) {
             printf("Tipo de aplicação: CDB\n");
+            aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+            imposto = IRPF(aplica[id[l]].ValorResgate, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+            aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate - imposto;
         }
-        else if(aplica[id[l]].investimento.TipoAplicacao = 3) {
+        else if(aplica[id[l]].investimento.TipoAplicacao == 3) {
             printf("Tipo de aplicação: CDB\n");
         }
         printf("Banco Emissor: %s", aplica[id[l]].investimento.BancoEmissor);
