@@ -1,3 +1,8 @@
+
+//Valores aproximados devido a imprecisão do float!!
+//Valores aproximados devido a imprecisão do float!!
+
+
 //Tipo de dados para Data
 typedef struct Data{
     int dia;
@@ -45,3 +50,4 @@ int id = 0;
 Cliente user[100];
 Investimento inv[10];
 Transacao aplica[3300];
+Data data_atual;
