@@ -175,7 +175,7 @@ void ordem() {
 
 }
 
-struct Data DataAtual() {
+Data DataAtual() {
     time_t tempo=time(NULL); //NULL indica que o valor retornado deve ser armazenado em uma variável do tipo time_t.
     struct tm dataAtual=*localtime(&tempo);
 
@@ -229,10 +229,9 @@ void Cadastro() {
             }
             getchar();
         }
-
         system(limpa);
         printf("Cliente cadastrado!!\n");
-        printf("Pressione qualquer tecla para continuar");  
+        printf("Pressione enter para continuar");  
         getchar();
         c_count++;
         i++;
@@ -253,12 +252,13 @@ void list_cliente() {
         printf("CPF do Cliente: %s\n", user[i].CPF);
         printf("Telefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
     }
-    printf("\nPressione qualquer tecla para continuar");  
+    printf("\nPressione enter para continuar");  
     getchar();
 }
 
 //Encontrar cliente via CPF
 void show_cadastro() {
+    system(limpa);
     char cpf[15];
     int cpf_cmp = 1;
     int i = 0;
@@ -279,14 +279,14 @@ void show_cadastro() {
         printf("CPF do Cliente: %s", user[i].CPF);
         printf("\nTelefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
         printf("Data de nascimento: %d/%d/%d\n", user[i].Nascimento.dia, user[i].Nascimento.mes, user[i].Nascimento.ano);
-        printf("\nPressione qualquer tecla para continuar\n"); 
+        printf("\nPressione enter para continuar\n"); 
         getchar();
         getchar();
     }
     else {
         system(limpa);
         printf("Cliente não cadastrado!\n");
-        printf("Pressione qualquer tecla para continuar\n");  
+        printf("Pressione enter para continuar\n");  
         getchar();
     }
 }
@@ -320,7 +320,7 @@ void LCI_LCA() {
         getchar();
         system(limpa);
         printf("Investimento cadastrado!\n\n");
-        printf("Pressione qualquer tecla para continuar\n");  
+        printf("Pressione enter para continuar\n");  
         getchar();
         inv_count++;
     }
@@ -341,10 +341,11 @@ void LCI_LCA() {
         getchar();
         system(limpa);
         printf("Investimento cadastrado!\n\n");
-        printf("Pressione qualquer tecla para continuar\n");  
+        printf("Pressione enter para continuar\n");  
         getchar();
         inv_count++;
     }
+
 //Cadastrar opção de fundos
     void Fundos() {
         float t = 0;
@@ -362,10 +363,43 @@ void LCI_LCA() {
         getchar();
         system(limpa);
         printf("Investimento cadastrado!\n\n");
-        printf("Pressione qualquer tecla para continuar\n");  
+        printf("Pressione enter para continuar\n");  
         getchar();
         inv_count++;
     }
+
+    void investimentos_menu() {
+        int op = 0;
+        while(1) {
+            system(limpa);
+            printf("##################################\n");
+            printf("#                                #\n");
+            printf("# Escolha o tipo de investimento #\n");
+            printf("#                                #");
+            printf("##################################\n");
+            printf("# 1                      LCI/LCA #\n");
+            printf("# 2                           CDB#\n");
+            printf("# 3                        Fundos#\n");
+            printf("# 0                          Sair#\n");
+            printf("##################################\n");
+            printf("# Escolha uma opção(0 - 3): ");
+            scanf("%d", &op);
+
+            if(op == 1) {
+                LCI_LCA();
+            }
+            else if(op == 2) {
+                CDB();
+            }
+            else if(op == 3) {
+                Fundos();
+            }
+            else if(op == 0) {
+                break;
+            }
+        }
+    }
+
 // Fazer aplicação
     void aplicacao() {
         system(limpa);
@@ -444,6 +478,32 @@ void LCI_LCA() {
         
     }
 
+//Resgate lci com daat atual
+float resgate_lci(float valor, float tax, Data apli) {
+    float resgate_now;
+    resgate_now = valor * pow ((1 + (tax / 100)), DiferencaDatas(apli, data_atual));
+    return resgate_now;
+}
+
+//Resgate cdb com daat atual
+float resgate_cdb(float valor, float tax, Data apli) {
+    float resgate_now, imposto_now;
+    resgate_now = valor * pow ((1 + (tax / 100)), DiferencaDatas(apli, data_atual));
+    imposto_now = IRPF(valor, tax, DiferencaDatas(apli, data_atual));
+    resgate_now = resgate_now - imposto_now;
+    return resgate_now;
+}
+
+//Resgate fundos com daat atual
+float resgate_fundos(float valor, float tax, Data apli) {
+    float resgate_now, imposto_now;
+    resgate_now = valor * pow ((1 + (tax / 100)), DiferencaDatas(apli, data_atual));
+    resgate_now = resgate_now * pow(0.99, (DiferencaDatas(apli, data_atual) / 365));
+    imposto_now = IRPF(valor, tax, DiferencaDatas(apli, data_atual));
+    resgate_now = resgate_now - imposto_now;
+    return resgate_now;
+}
+
 //Mostrar as aplicações do cliente
 void list_aplicacacoes() {
     system(limpa);
@@ -479,31 +539,22 @@ void list_aplicacacoes() {
         if(aplica[id[l]].investimento.TipoAplicacao == 1) {
             printf("Tipo de aplicação: LCI/LCA\n");
             aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
-            resgate_now = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, data_atual));
+            resgate_now = resgate_lci(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, aplica[id[l]].DataAplicacao);
         }
         else if(aplica[id[l]].investimento.TipoAplicacao == 2) {
             printf("Tipo de aplicação: CDB\n");
             aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
-            imposto = IRPF(aplica[id[l]].ValorResgate, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+            imposto = IRPF(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
             aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate - imposto;
-
-            resgate_now = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, data_atual));
-            imposto_now = IRPF(aplica[id[l]].ValorResgate, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, data_atual));
-            resgate_now = resgate_now - imposto_now;
+            resgate_now = resgate_cdb(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, aplica[id[l]].DataAplicacao);
         }
         else if(aplica[id[l]].investimento.TipoAplicacao == 3) {
             printf("Tipo de aplicação: Fundos\n");
             aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
             aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate * pow(0.99, (DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate) / 365));
-            imposto = IRPF(aplica[id[l]].ValorResgate, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+            imposto = IRPF(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
             aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate - imposto;
-
-            resgate_now = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, data_atual));
-            resgate_now = resgate_now * pow(0.99, (DiferencaDatas(aplica[id[l]].DataAplicacao, data_atual) / 365));
-            imposto_now = IRPF(aplica[id[l]].ValorResgate, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, data_atual));
-            resgate_now = resgate_now - imposto_now;
-        
-        
+            resgate_now = resgate_fundos(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, aplica[id[l]].DataAplicacao);
         }
         printf("Banco Emissor: %s", aplica[id[l]].investimento.BancoEmissor);
         printf("Taxa: %.2f%%\n", aplica[id[l]].investimento.taxa);
@@ -512,32 +563,41 @@ void list_aplicacacoes() {
         printf("\n");
     }
     getchar();
-    printf("Pressione qualquer tecla para continuar\n");
+    printf("Pressione enter para continuar\n");
     getchar();
 }
 
-void edit_aplicacao() {
-    char a;
-    int i = 0;
-
-    getchar();
+void montante() {
     system(limpa);
+    float montante_lci = 0;
+    float montante_cdb = 0;
+    float montante_fundos = 0;
 
-    printf("Insira o Id da aplicação: ");
-    scanf("%d", &i);
+    int i = 0;
+    for(i = 0; i < 100; i++) {
+        if(aplica[i].investimento.TipoAplicacao == 1) {
+            montante_lci += resgate_lci(aplica[i].ValorAplicacao, aplica[i].investimento.taxa, aplica[i].DataAplicacao);
+        }
+    }
 
+    for(i = 0; i < 100; i++) {
+        if(aplica[i].investimento.TipoAplicacao == 2) {
+            montante_cdb += resgate_cdb(aplica[i].ValorAplicacao, aplica[i].investimento.taxa, aplica[i].DataAplicacao);
+        }
+    }
+
+    for(i = 0; i < 100; i++) {
+        if(aplica[i].investimento.TipoAplicacao == 3) {
+            montante_fundos += resgate_fundos(aplica[i].ValorAplicacao, aplica[i].investimento.taxa, aplica[i].DataAplicacao);
+        }
+    }
+
+
+    printf("O montante de investimentos lci é: %.2f\n", montante_lci);
+    printf("O montante de investimentos cdb é: %.2f\n", montante_cdb);
+    printf("O montante de investimentos fundos é: %.2f\n", montante_fundos);
     getchar();
-    printf("Você deseja alterar a data de resgate ou aumentar o investimento? (D - I): ");
-    scanf("%c", &a);
-
-    if (a == 'D') {
-        printf("Insira a nova data de resgate (dd/mm/aaaa): ");
-        scanf("%d/%d/%d", &aplica[i].DataResgate.dia, &aplica[i].DataResgate.mes, &aplica[i].DataResgate.ano);
-    }
-    else if (a == 'I') {
-
-    }
-
-}
-
+    printf("Pressione enter para continuar\n");
+    getchar();
     
+}

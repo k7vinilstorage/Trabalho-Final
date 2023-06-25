@@ -6,8 +6,6 @@
 //Valores aproximados devido a imprecisão do float!!
 //Valores aproximados devido a imprecisão do float!!
 
-// Lista de todos os investimentos com montante
-// 
 
 int main() {
 
@@ -23,18 +21,21 @@ int main() {
 
     while (1) {
         system(limpa);
-        printf("Bem vindo a central de investimentos!!\n");
-        printf("1 - Cadastrar Cliente\n");
-        printf("2 - Apresentar Cadastro\n");
-        printf("3 - Listar clientes\n");
-        printf("4 - Investimento LCI/LCA\n");
-        printf("5 - Investimento CDB\n");
-        printf("6 - Investimento Fundos\n");
-        printf("7 - Criar Transação\n");
-        printf("8 - Listar aplicações\n");
-        printf("9 - \n");
-        printf("0 - Sair\n");
-        printf("Escolha uma opção (0 - 9): ");
+        printf("##########################################\n");
+        printf("#                                        #\n");
+        printf("# Bem vindo a central de investimentos!! #\n");
+        printf("#                                        #\n");
+        printf("##########################################\n");
+        printf("# 1                    Cadastrar Cliente #\n");
+        printf("# 2                  Apresentar Cadastro #\n");
+        printf("# 3                      Listar clientes #\n");
+        printf("# 4              Cadastrar investimentos #\n");
+        printf("# 5                      Criar Transação #\n");
+        printf("# 6                    Listar aplicações #\n");
+        printf("# 7                     Mostrar montante #\n");
+        printf("# 0                                 Sair #\n");
+        printf("##########################################\n");
+        printf("Escolha uma opção (0 - 7): ");
         scanf("%d", &op);
 
         if(op == 1) {
@@ -47,22 +48,16 @@ int main() {
             list_cliente();
         }
         else if(op == 4) {
-            LCI_LCA();
+            investimentos_menu();
         }
         else if(op == 5) {
-            CDB();
-        }
-        else if(op == 6) {
-            Fundos();
-        }
-        else if(op == 7) {
             aplicacao();
         }
-        else if(op == 8) {
+        else if(op == 6) {
             list_aplicacacoes();
         }
-        else if(op == 9) {
-            edit_aplicacao();
+        else if(op == 7) {
+            montante();  
         }
         else if(op == 0) {
             break;
