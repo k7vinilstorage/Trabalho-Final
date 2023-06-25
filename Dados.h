@@ -46,6 +46,7 @@ typedef struct Transacao{
 int c_count = 0;
 int inv_count = 0;
 int id = 0;
+char limpa[10];
 
 Cliente user[100];
 Investimento inv[10];

@@ -11,6 +11,12 @@
 
 int main() {
 
+    #ifdef _WIN32
+        strcpy(limpa, "cls");
+    #else
+        strcpy(limpa, "clear");
+    #endif
+
     int op = 0;
 
     while(1) {
@@ -22,7 +28,7 @@ int main() {
     }
 
     while (1) {
-        system("clear");
+        system(limpa);
         printf("Bem vindo a central de investimentos!!\n");
         printf("1 - Cadastrar Cliente\n");
         printf("2 - Apresentar Cadastro\n");
