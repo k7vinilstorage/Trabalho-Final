@@ -191,7 +191,7 @@ void Cadastro() {
             getchar();
         }
 
-        system("clear");
+        system(limpa);
         printf("Cliente cadastrado!!\n");
         printf("Pressione qualquer tecla para continuar");  
         getchar();
@@ -203,7 +203,7 @@ void Cadastro() {
 void list_cliente() {
     getchar();
     int i = 0;
-    system("clear");
+    system(limpa);
 
     for(i = 0; i < c_count; i++) {
         printf("%d:", i);
@@ -231,7 +231,7 @@ void show_cadastro() {
     i--;
 
     if(cpf_cmp == 0) {
-        system("clear");
+        system(limpa);
         printf("Nome do Cliente: %s", user[i].Nome);
         printf("CPF do Cliente: %s", user[i].CPF);
         printf("\nTelefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
@@ -240,7 +240,7 @@ void show_cadastro() {
         getchar();
     }
     else {
-        system("clear");
+        system(limpa);
         printf("Cliente não cadastrado!\n");
         printf("Pressione qualquer tecla para continuar\n");  
         getchar();
@@ -275,7 +275,7 @@ int get_cliente2(char cpf[15]) {
 //Cadastrar opção de LCI/LCA
 void LCI_LCA() {
         float t = 0;
-        system("clear");
+        system(limpa);
         getchar();
         inv[inv_count].TipoAplicacao = 1;
         printf("Insira o banco emissor: ");
@@ -287,7 +287,7 @@ void LCI_LCA() {
         printf("Ativo (S/N): ");
         scanf("%c", &inv[inv_count].ATIVO);
         getchar();
-        system("clear");
+        system(limpa);
         printf("Investimento cadastrado!\n\n");
         printf("Pressione qualquer tecla para continuar\n");  
         getchar();
@@ -296,7 +296,7 @@ void LCI_LCA() {
 //Cadastrar opção de CDB
     void CDB() {
         float t = 0;
-        system("clear");
+        system(limpa);
         getchar();
         inv[inv_count].TipoAplicacao = 2;
         printf("Insira o banco emissor: ");
@@ -308,7 +308,7 @@ void LCI_LCA() {
         printf("Ativo (S/N): ");
         scanf("%c", &inv[inv_count].ATIVO);
         getchar();
-        system("clear");
+        system(limpa);
         printf("Investimento cadastrado!\n\n");
         printf("Pressione qualquer tecla para continuar\n");  
         getchar();
@@ -317,7 +317,7 @@ void LCI_LCA() {
 //Cadastrar opção de fundos
     void Fundos() {
         float t = 0;
-        system("clear");
+        system(limpa);
         getchar();
         inv[inv_count].TipoAplicacao = 3;
         printf("Insira o banco emissor: ");
@@ -329,7 +329,7 @@ void LCI_LCA() {
         printf("Ativo (S/N): ");
         scanf("%c", &inv[inv_count].ATIVO);
         getchar();
-        system("clear");
+        system(limpa);
         printf("Investimento cadastrado!\n\n");
         printf("Pressione qualquer tecla para continuar\n");  
         getchar();
@@ -337,7 +337,7 @@ void LCI_LCA() {
     }
 // Fazer aplicação
     void aplicacao() {
-        system("clear");
+        system(limpa);
         int k = 0;
         int x = 0;
         int i = 0;
@@ -398,7 +398,7 @@ void LCI_LCA() {
         id++;
         getchar();
 
-        system("clear");
+        system(limpa);
 
         printf("Aplicação concluida!\n");
         getchar();
@@ -407,7 +407,7 @@ void LCI_LCA() {
 
 //Mostrar as aplicações do cliente
 void list_aplicacacoes() {
-    system("clear");
+    system(limpa);
     int id[30];
     int j = 0;
     int k = 0;
@@ -482,7 +482,7 @@ void edit_aplicacao() {
     int i = 0;
 
     getchar();
-    system("clear");
+    system(limpa);
 
     printf("Insira o Id da aplicação: ");
     scanf("%d", &i);
