@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 #include "Dados.h"
 
 //Valores aproximados devido a imprecisão do float!!
@@ -118,13 +119,6 @@ float IRPF (float valor, float tax, int TEMPO) {
 
 }
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Funções especificas
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//Função de cadastro
-
 int validar_cpf(char cpf[15]){
     int ncpf[11]={0,0,0,0,0,0,0,0,0,0,0};
     int num=0;
@@ -162,7 +156,45 @@ int validar_cpf(char cpf[15]){
     }
 }
 
+//Ordem Alfabetica
+
+void ordem() {
+    Cliente temp1;
+    int i = 0;
+    int z = 0;
+
+    for(z = 0; z < c_count - 1; z++) {
+        for(i = 0; i < (c_count - 1); i++) {
+            if(strcasecmp(user[i].Nome, user[(i + 1)].Nome) > 0) {
+                temp1 = user[(i + 1)];
+                user[(i + 1)] = user[i];
+                user[i] = temp1;
+            }
+        }
+    }
+
+}
+
+struct Data DataAtual() {
+    time_t tempo=time(NULL); //NULL indica que o valor retornado deve ser armazenado em uma variável do tipo time_t.
+    struct tm dataAtual=*localtime(&tempo);
+
+    struct Data data;
+    data.dia=dataAtual.tm_mday;
+    data.mes=dataAtual.tm_mon + 1; //começa no 0
+    data.ano=dataAtual.tm_year + 1900; //começa no 0
+
+    return data;
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Funções especificas
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//Função de cadastro
 void Cadastro() {
+    system(limpa);
     int x = 0;
     int i = 0;
     while(i < 1) {
@@ -176,7 +208,6 @@ void Cadastro() {
             if(x == 0) {
                 printf("CPF inválido!\n");
             }
-            getchar();
         }
 
         for(x = 0; x < 1; x) {
@@ -187,6 +218,14 @@ void Cadastro() {
             x = ValidarTelefone(user[c_count].Fone.DDD, user[c_count].Fone.numero);
             if(x == 0) {
                 printf("Telefone inválido!\n");
+            }
+            while(1) {
+                printf("Insira a data de nascimento do cliente (dd/mm/aaaa): ");
+                scanf("%d/%d/%d", &user[c_count].Nascimento.dia, &user[c_count].Nascimento.mes, &user[c_count].Nascimento.ano);
+                if(ValidarData(user[c_count].Nascimento) == 1) {
+                    break;
+                }
+                printf("Data inválida!\n");
             }
             getchar();
         }
@@ -199,8 +238,11 @@ void Cadastro() {
         i++;
     }
 }
+
+
 // Listar cliente
 void list_cliente() {
+    ordem();
     getchar();
     int i = 0;
     system(limpa);
@@ -214,6 +256,7 @@ void list_cliente() {
     printf("\nPressione qualquer tecla para continuar");  
     getchar();
 }
+
 //Encontrar cliente via CPF
 void show_cadastro() {
     char cpf[15];
@@ -235,6 +278,7 @@ void show_cadastro() {
         printf("Nome do Cliente: %s", user[i].Nome);
         printf("CPF do Cliente: %s", user[i].CPF);
         printf("\nTelefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
+        printf("Data de nascimento: %d/%d/%d\n", user[i].Nascimento.dia, user[i].Nascimento.mes, user[i].Nascimento.ano);
         printf("\nPressione qualquer tecla para continuar\n"); 
         getchar();
         getchar();
@@ -247,13 +291,10 @@ void show_cadastro() {
     }
 }
 
-int get_cliente() {
+//Retorna a entrada do cliente no vetor
+int get_cliente(char cpf[15]) {
     int k = 0;
     int cpf_cmp = 1;
-    char cpf[15];
-    getchar();
-    printf("Insira o CPF do cliente: ");
-    fgets(cpf, 15, stdin);
     while(cpf_cmp != 0 || k == 99) {
         cpf_cmp = strcmp(user[k].CPF, cpf);
         k++;
@@ -262,16 +303,6 @@ int get_cliente() {
     return k;
 }
 
-int get_cliente2(char cpf[15]) {
-    int k = 0;
-    int cpf_cmp = 1;
-    while(cpf_cmp != 0 || k == 99) {
-        cpf_cmp = strcmp(user[k].CPF, cpf);
-        k++;
-    }
-    k--;
-    return k;
-}
 //Cadastrar opção de LCI/LCA
 void LCI_LCA() {
         float t = 0;
@@ -341,6 +372,7 @@ void LCI_LCA() {
         int k = 0;
         int x = 0;
         int i = 0;
+        char cpf[15];
 
         for(i = 0; i < inv_count; i++) {
             if(inv[i].TipoAplicacao == 1) {
@@ -369,10 +401,15 @@ void LCI_LCA() {
 
         aplica[id].ID_transacao = id;
 
-        k = get_cliente();
+        getchar();
+        system(limpa);
+        printf("Insira o cpf do cliente: ");
+        fgets(cpf, 15, stdin);
 
-        aplica[id].cliente = user[k];
+        k = get_cliente(cpf);
+
         aplica[id].investimento = inv[x];
+        aplica[id].cliente = user[k];
 
         printf("Insira o valor da aplicação: ");
         scanf("%f", &aplica[id].ValorAplicacao);
@@ -383,6 +420,7 @@ void LCI_LCA() {
             if(ValidarData(aplica[id].DataAplicacao) == 1) {
                 break;
             }
+            printf("Data inválida!\n");
         }
 
         while(1) {
@@ -391,6 +429,7 @@ void LCI_LCA() {
             if(ValidarData_resgate(aplica[id].DataResgate, aplica[id].DataAplicacao) == 1) {
                 break;
             }
+            printf("Data inválida!\n");
         }
 
         aplica[id].ValorResgate = 0.00;
@@ -422,7 +461,7 @@ void list_aplicacacoes() {
     printf("Insira o CPF do cliente: ");
     fgets(cpf, 15, stdin);
 
-    j = get_cliente2(cpf);
+    j = get_cliente(cpf);
 
     printf("Nome do Cliente: %s\n", user[j].Nome);
 

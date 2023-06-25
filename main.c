@@ -19,13 +19,7 @@ int main() {
 
     int op = 0;
 
-    while(1) {
-        printf("Insira a data atual (dd/mm/aaaa): ");
-        scanf("%d/%d/%d", &data_atual.dia, &data_atual.mes, &data_atual.ano);
-        if(ValidarData(data_atual) == 1) {
-            break;
-        }
-    }
+    data_atual = DataAtual();
 
     while (1) {
         system(limpa);

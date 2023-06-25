@@ -47,8 +47,10 @@ int c_count = 0;
 int inv_count = 0;
 int id = 0;
 char limpa[10];
+int ordem_cliente[100];
 
 Cliente user[100];
 Investimento inv[10];
 Transacao aplica[3300];
 Data data_atual;
+
