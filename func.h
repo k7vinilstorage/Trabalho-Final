@@ -12,13 +12,6 @@
 // Funções Validadoras
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-//Função conta dígitos
-int NumeroDigitos(long int num){ //contar quantos digitos têm
-    int digitos=0;
-    
-}
-
 //Função Validadora de Data
 int ValidarData(Data var1){ //var1 é a variavel-parametro
     if(var1.dia<1 || var1.dia>30){
@@ -57,7 +50,7 @@ int DiferencaDatas(Data data_inicial, Data data_final){
     return dif;
 }
 
-//Função de valitar data de Resgate
+//Função de validar data de Resgate
 int ValidarData_resgate(Data var1, Data var2){ //var1 é a variavel-parametro
     if(var1.dia<1 || var1.dia>30){
         return 0;
@@ -85,7 +78,7 @@ float tax_conv(float x) {
     return TAXA_CONV;
 }
 
-//Caluladora de imposto (roubo)
+//Caluladora de imposto
 float IRPF (float valor, float tax, int TEMPO) {
 
     float TEMPlucro, IRPF, pow_;
@@ -114,50 +107,50 @@ float IRPF (float valor, float tax, int TEMPO) {
         IRPF = TEMPlucro * 0.15;
         }
 
-
     return IRPF;
-
 }
 
-int validar_cpf(char cpf[15]){
+// Função validadora de CPF
+int validar_cpf(char cpf[15]) {
     int ncpf[11]={0,0,0,0,0,0,0,0,0,0,0};
     int num=0;
-    for(int i=0; i<3; i++){
+    for(int i=0; i<3; i++) {
         ncpf[i]=cpf[i]-48;
     }
-    for(int i=4; i<7; i++){
+    for(int i=4; i<7; i++) {
         ncpf[i-1]=cpf[i]-48;
     }
-    for(int i=8; i<11; i++){
+    for(int i=8; i<11; i++) {
         ncpf[i-2]=cpf[i]-48;
     }
-    for (int i=0; i<9; i++){
+    for (int i=0; i<9; i++) {
         num+=(ncpf[i])*(i+1);
     }
     num=num%11;
-    if(num<2){
+    if(num<2) {
         num=0;
     }
-    if(num!=cpf[12]-48){
+    if(num!=cpf[12]-48) {
         return 0;
-    } else{
+    } 
+    else {
         ncpf[9]=num;
         num=0;
-        for (int i=0; i<9; i++){
+        for (int i=0; i<9; i++) {
             num+=(ncpf[i+1])*(10-i);
         }
         num=num%11;
         num=11-num;
-        if(num!=cpf[13]-48){
+        if(num!=cpf[13]-48) {
             return 0;
-        }else{
+        }
+        else {
             return 1;
         }
     }
 }
 
 //Ordem Alfabetica
-
 void ordem() {
     Cliente temp1;
     int i = 0;
@@ -172,7 +165,6 @@ void ordem() {
             }
         }
     }
-
 }
 
 Data DataAtual() {
@@ -200,7 +192,7 @@ void Cadastro() {
     while(i < 1) {
         getchar();
         printf("Insina o nome do cliente: ");
-        fgets(user[c_count].Nome, 50, stdin);
+        fgets(user[c_count].Nome, 50, stdin); //c_count = número de clientes
         for(x = 0; x < 1; x) {
             printf("Insira o CPF do cliente: ");
             fgets(user[c_count].CPF, 15, stdin);
@@ -238,10 +230,9 @@ void Cadastro() {
     }
 }
 
-
 // Listar cliente
 void list_cliente() {
-    ordem();
+    ordem(); // coloca em ordem alfabética
     getchar();
     int i = 0;
     system(limpa);
@@ -256,24 +247,46 @@ void list_cliente() {
     getchar();
 }
 
+//Retorna a entrada do cliente no vetor
+int get_cliente(char cpf[15]) {
+    int k = 0;                   // Esntrada do cliente no vetor user
+    int cpf_cmp = 1;
+    while(cpf_cmp != 0 || k == 99) {
+        if(user[k].CPF[0] == '\0') {
+            return 200;
+            break;
+        }
+        cpf_cmp = strcmp(cpf, user[k].CPF);
+        k++;
+    }
+    k--;
+    return k;
+}
+
 //Encontrar cliente via CPF
 void show_cadastro() {
     system(limpa);
     char cpf[15];
-    int cpf_cmp = 1;
     int i = 0;
     getchar();
-    printf("Insira o CPF do cliente: ");
-    fgets(cpf, 15, stdin);
 
-    while(cpf_cmp != 0 || i == 99) {
-        cpf_cmp = strcmp(user[i].CPF, cpf);
-        i++;
-    }
+    while(1) {
+        printf("Insira o CPF do cliente: ");
+        fgets(cpf, 15, stdin);
+        getchar();
 
-    i--;
+        i = get_cliente(cpf);
 
-    if(cpf_cmp == 0) {
+        if(i == 200) {
+            printf("Cliente não cadastrado!\n");
+            printf("\nPressione enter para continuar\n"); 
+            getchar();
+            break;printf("Cliente não cadastrado!\n");
+            printf("\nPressione enter para continuar\n"); 
+            getchar();
+            break;
+        }
+
         system(limpa);
         printf("Nome do Cliente: %s", user[i].Nome);
         printf("CPF do Cliente: %s", user[i].CPF);
@@ -281,169 +294,164 @@ void show_cadastro() {
         printf("Data de nascimento: %d/%d/%d\n", user[i].Nascimento.dia, user[i].Nascimento.mes, user[i].Nascimento.ano);
         printf("\nPressione enter para continuar\n"); 
         getchar();
-        getchar();
+        break;
     }
-    else {
-        system(limpa);
-        printf("Cliente não cadastrado!\n");
-        printf("Pressione enter para continuar\n");  
-        getchar();
-    }
+    
 }
 
-//Retorna a entrada do cliente no vetor
-int get_cliente(char cpf[15]) {
-    int k = 0;
-    int cpf_cmp = 1;
-    while(cpf_cmp != 0 || k == 99) {
-        cpf_cmp = strcmp(user[k].CPF, cpf);
-        k++;
-    }
-    k--;
-    return k;
-}
 
 //Cadastrar opção de LCI/LCA
 void LCI_LCA() {
-        float t = 0;
-        system(limpa);
-        getchar();
-        inv[inv_count].TipoAplicacao = 1;
-        printf("Insira o banco emissor: ");
-        fgets(inv[inv_count].BancoEmissor, 100, stdin);
-        printf("Insira a taxa (ao ano): ");
-        scanf("%f", &t);
-        inv[inv_count].taxa = tax_conv(t);
-        getchar();
-        printf("Ativo (S/N): ");
-        scanf("%c", &inv[inv_count].ATIVO);
-        getchar();
-        system(limpa);
-        printf("Investimento cadastrado!\n\n");
-        printf("Pressione enter para continuar\n");  
-        getchar();
-        inv_count++;
-    }
+    float t = 0; // variável temporária para taxa
+    system(limpa);
+    getchar();
+    inv[inv_count].TipoAplicacao = 1;
+    printf("Insira o banco emissor: ");
+    fgets(inv[inv_count].BancoEmissor, 100, stdin);
+    printf("Insira a taxa (ao ano): ");
+    scanf("%f", &t);
+    inv[inv_count].taxa = tax_conv(t);
+    getchar();
+    printf("Ativo (S/N): ");
+    scanf("%c", &inv[inv_count].ATIVO);
+    getchar();
+    system(limpa);
+    printf("Investimento cadastrado!\n\n");
+    printf("Pressione enter para continuar\n");  
+    getchar();
+    inv_count++;
+}
+
 //Cadastrar opção de CDB
-    void CDB() {
-        float t = 0;
-        system(limpa);
-        getchar();
-        inv[inv_count].TipoAplicacao = 2;
-        printf("Insira o banco emissor: ");
-        fgets(inv[inv_count].BancoEmissor, 100, stdin);
-        printf("Insira a taxa (ao ano): ");
-        scanf("%f", &t);
-        inv[inv_count].taxa = tax_conv(t);
-        getchar();
-        printf("Ativo (S/N): ");
-        scanf("%c", &inv[inv_count].ATIVO);
-        getchar();
-        system(limpa);
-        printf("Investimento cadastrado!\n\n");
-        printf("Pressione enter para continuar\n");  
-        getchar();
-        inv_count++;
-    }
+void CDB() {
+    float t = 0;
+    system(limpa);
+    getchar();
+    inv[inv_count].TipoAplicacao = 2;
+    printf("Insira o banco emissor: ");
+    fgets(inv[inv_count].BancoEmissor, 100, stdin);
+    printf("Insira a taxa (ao ano): ");
+    scanf("%f", &t);
+    inv[inv_count].taxa = tax_conv(t);
+    getchar();
+    printf("Ativo (S/N): ");
+    scanf("%c", &inv[inv_count].ATIVO);
+    getchar();
+    system(limpa);
+    printf("Investimento cadastrado!\n\n");
+    printf("Pressione enter para continuar\n");  
+    getchar();
+    inv_count++;
+}
 
 //Cadastrar opção de fundos
-    void Fundos() {
-        float t = 0;
-        system(limpa);
-        getchar();
-        inv[inv_count].TipoAplicacao = 3;
-        printf("Insira o banco emissor: ");
-        fgets(inv[inv_count].BancoEmissor, 100, stdin);
-        printf("Insira a taxa (ao ano): ");
-        scanf("%f", &t);
-        inv[inv_count].taxa = tax_conv(t);
-        getchar();
-        printf("Ativo (S/N): ");
-        scanf("%c", &inv[inv_count].ATIVO);
-        getchar();
-        system(limpa);
-        printf("Investimento cadastrado!\n\n");
-        printf("Pressione enter para continuar\n");  
-        getchar();
-        inv_count++;
-    }
+void Fundos() {
+    float t = 0;
+    system(limpa);
+    getchar();
+    inv[inv_count].TipoAplicacao = 3;
+    printf("Insira o banco emissor: ");
+    fgets(inv[inv_count].BancoEmissor, 100, stdin);
+    printf("Insira a taxa (ao ano): ");
+    scanf("%f", &t);
+    inv[inv_count].taxa = tax_conv(t);
+    getchar();
+    printf("Ativo (S/N): ");
+    scanf("%c", &inv[inv_count].ATIVO);
+    getchar();
+    system(limpa);
+    printf("Investimento cadastrado!\n\n");
+    printf("Pressione enter para continuar\n");  
+    getchar();
+    inv_count++;
+}
 
-    void investimentos_menu() {
-        int op = 0;
-        while(1) {
-            system(limpa);
-            printf("##################################\n");
-            printf("#                                #\n");
-            printf("# Escolha o tipo de investimento #\n");
-            printf("#                                #");
-            printf("##################################\n");
-            printf("# 1                      LCI/LCA #\n");
-            printf("# 2                           CDB#\n");
-            printf("# 3                        Fundos#\n");
-            printf("# 0                          Sair#\n");
-            printf("##################################\n");
-            printf("# Escolha uma opção(0 - 3): ");
-            scanf("%d", &op);
+// Menu para criar investimentos
+void investimentos_menu() {
 
-            if(op == 1) {
-                LCI_LCA();
-            }
-            else if(op == 2) {
-                CDB();
-            }
-            else if(op == 3) {
-                Fundos();
-            }
-            else if(op == 0) {
-                break;
-            }
+    int op = 0;
+
+    while(1) {
+        system(limpa);
+        printf("##################################\n");
+        printf("#                                #\n");
+        printf("# Escolha o tipo de investimento #\n");
+        printf("#                                #\n");
+        printf("##################################\n");
+        printf("# 1                      LCI/LCA #\n");
+        printf("# 2                           CDB#\n");
+        printf("# 3                        Fundos#\n");
+        printf("# 0                          Sair#\n");
+        printf("##################################\n");
+        printf("# Escolha uma opção(0 - 3): ");
+        scanf("%d", &op);
+
+        if(op == 1) {
+            LCI_LCA();
+        }
+        else if(op == 2) {
+            CDB();
+        }
+        else if(op == 3) {
+            Fundos();
+        }
+        else if(op == 0) {
+            break;
         }
     }
+}
 
 // Fazer aplicação
-    void aplicacao() {
-        system(limpa);
-        int k = 0;
-        int x = 0;
-        int i = 0;
-        char cpf[15];
+int aplicacao() {
+    system(limpa);
+    int k = 0; // entrada do cliente no vetor extraida via cpf
+    int x = 0; // variavel para recolher o tipo de aplicação
+    int i = 0; // contador para loop
+    char cpf[15];
 
-        for(i = 0; i < inv_count; i++) {
-            if(inv[i].TipoAplicacao == 1) {
-                printf("%d)\nAplicação LCI/LCA\n", i);
-            }
-            else if(inv[i].TipoAplicacao == 2) {
-                printf("%d)\nAplicação CDB\n", i);
-            }
-            else if(inv[i].TipoAplicacao == 3) {
-                printf("%d)\nAplicação Fundos\n", i);
-            }
-            printf("Banco emissor: %s", inv[i].BancoEmissor);
-            printf("Taxa: %.3f%% ao dia\n", inv[i].taxa);
-            printf("Ativo: %c", inv[i].ATIVO);
-            printf("\n");
+    for(i = 0; i < inv_count; i++) {
+        if(inv[i].TipoAplicacao == 1) {
+            printf("%d)\nAplicação LCI/LCA\n", i);
         }
-
-        while(1) {
-            printf("Insira o tipo de aplicação (0 - %d): ", (inv_count - 1));
-            scanf("%d", &x);
-            if("%d", inv[x].ATIVO == 'S') {
-                break;
-            }
-            printf("Investimento Inativo!\n");
+        else if(inv[i].TipoAplicacao == 2) {
+            printf("%d)\nAplicação CDB\n", i);
         }
+        else if(inv[i].TipoAplicacao == 3) {
+            printf("%d)\nAplicação Fundos\n", i);
+        }
+        printf("Banco emissor: %s", inv[i].BancoEmissor);
+        printf("Taxa: %.3f%% ao dia\n", inv[i].taxa);
+        printf("Ativo: %c", inv[i].ATIVO);
+        printf("\n");
+    }
 
-        aplica[id].ID_transacao = id;
+    while(1) {
+        printf("Insira o tipo de aplicação (0 - %d): ", (inv_count - 1));
+        scanf("%d", &x);
+        if("%d", inv[x].ATIVO == 'S') {
+            break;
+        }
+        printf("Investimento Inativo!\n");
+    }
 
-        getchar();
-        system(limpa);
+    aplica[id].ID_transacao = id; // define o id para a transação, o qual é incrementado automaticamente
+
+    getchar();
+    system(limpa);
+
+    while(1) {
         printf("Insira o cpf do cliente: ");
         fgets(cpf, 15, stdin);
-
         k = get_cliente(cpf);
-
-        aplica[id].investimento = inv[x];
-        aplica[id].cliente = user[k];
+        if(k == 200) {
+            printf("\nCliente não cadastrado!\n");
+            printf("\nPressione enter para continuar\n"); 
+            getchar();
+            getchar();
+            break;
+        }
+        aplica[id].investimento = inv[x]; // copia as informaçoes de investimento do vetor de investimentos para a transação específica
+        aplica[id].cliente = user[k]; // copia as informações do cliente do vetor de clientes para a transação específica 
 
         printf("Insira o valor da aplicação: ");
         scanf("%f", &aplica[id].ValorAplicacao);
@@ -466,7 +474,7 @@ void LCI_LCA() {
             printf("Data inválida!\n");
         }
 
-        aplica[id].ValorResgate = 0.00;
+        aplica[id].ValorResgate = 0.00; // Define o valor de resgate inicial como 0
 
         id++;
         getchar();
@@ -474,18 +482,22 @@ void LCI_LCA() {
         system(limpa);
 
         printf("Aplicação concluida!\n");
-        getchar();
-        
-    }
+        printf("Pressione enter para continuar\n");
 
-//Resgate lci com daat atual
+        getchar();       
+    }
+}
+
+
+
+//Resgate lci com data atual  // retorna o volor de resgade de uma aplicação lci com base na data atual
 float resgate_lci(float valor, float tax, Data apli) {
     float resgate_now;
     resgate_now = valor * pow ((1 + (tax / 100)), DiferencaDatas(apli, data_atual));
     return resgate_now;
 }
 
-//Resgate cdb com daat atual
+//Resgate cdb com data atual // retorna o volor de resgade de uma aplicação cdb com base na data atual
 float resgate_cdb(float valor, float tax, Data apli) {
     float resgate_now, imposto_now;
     resgate_now = valor * pow ((1 + (tax / 100)), DiferencaDatas(apli, data_atual));
@@ -494,7 +506,7 @@ float resgate_cdb(float valor, float tax, Data apli) {
     return resgate_now;
 }
 
-//Resgate fundos com daat atual
+//Resgate fundos com data atual // retorna o volor de resgade de uma aplicação fundos com base na data atual
 float resgate_fundos(float valor, float tax, Data apli) {
     float resgate_now, imposto_now;
     resgate_now = valor * pow ((1 + (tax / 100)), DiferencaDatas(apli, data_atual));
@@ -507,66 +519,79 @@ float resgate_fundos(float valor, float tax, Data apli) {
 //Mostrar as aplicações do cliente
 void list_aplicacacoes() {
     system(limpa);
-    int id[30];
-    int j = 0;
-    int k = 0;
-    int i = 0;
-    int l = 0;
-    float imposto = 0;
-    float imposto_now = 0;
-    float resgate_now = 0;
-    int cpf_cmp = 1;
-    char cpf[15];
+    int id[30]; // vetor que armazena as entradas das transações de um cliente
+    int j = 0; // entrada do cliente no vetor de clientes
+    int k = 0; // variavél intermediária para arazena a entrada de uma transação de um cliente
+    int i = 0; // varialvel que armazena o número de transações de um cliente
+    int l = 0; // variavel de loop para apresentar as informações do cliente
+    float imposto = 0; // variável para o imposto com base na data pre-definida
+    float imposto_now = 0; // variavel para o imposto com base na data atual
+    float resgate_now = 0; // variavel que armazena o valor de resgate com base na data atual
+    int cpf_cmp = 1; // variável para comparação de cpf
+    char cpf[15]; // Variável temporáraia para cpf
     getchar();
-    printf("Insira o CPF do cliente: ");
-    fgets(cpf, 15, stdin);
 
-    j = get_cliente(cpf);
-
-    printf("Nome do Cliente: %s\n", user[j].Nome);
-
-    while(k < 99) {
-        cpf_cmp = strcmp(aplica[k].cliente.CPF, cpf);
-        if(cpf_cmp == 0) {
-            id[i] = k;
-            i++;
+    //loop whilhe criado para interromper o funcionamento da função caso um cpf não cadastrado seja inserido
+    while(1) { 
+        printf("Insira o CPF do cliente: ");
+        fgets(cpf, 15, stdin);
+        j = get_cliente(cpf); //entrada do cliente no vetor de clientes
+        if(j == 200) {        //Verifica o retorno da função caso o cpf seja inválido
+            printf("\nCliente não cadastrado!\n");
+            printf("\nPressione enter para continuar\n"); 
+            getchar();
+            getchar();
+            break;
         }
-        k++;
+        printf("Nome do Cliente: %s\n", user[j].Nome);
+
+        // seleciona a entrada da transação do cleinte comparando cpf
+        while(k < 99) {
+            cpf_cmp = strcmp(aplica[k].cliente.CPF, cpf);
+            if(cpf_cmp == 0) {
+                id[i] = k; // Define uma entrada no vetor id caso a transação pertença ao cliente
+                i++;
+            }
+            k++;
+        }
+
+        //Reliza os calculos para a transação com base em seu tipoe  aprensenta todas as transações do cliente
+
+        for(l = 0; l < i; l++) {
+            printf("Id de transação: %d\n", aplica[id[l]].ID_transacao); 
+            if(aplica[id[l]].investimento.TipoAplicacao == 1) {
+                printf("Tipo de aplicação: LCI/LCA\n");
+                aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+                resgate_now = resgate_lci(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, aplica[id[l]].DataAplicacao);
+            }
+            else if(aplica[id[l]].investimento.TipoAplicacao == 2) {
+                printf("Tipo de aplicação: CDB\n");
+                aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+                imposto = IRPF(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+                aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate - imposto;
+                resgate_now = resgate_cdb(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, aplica[id[l]].DataAplicacao);
+            }
+            else if(aplica[id[l]].investimento.TipoAplicacao == 3) {
+                printf("Tipo de aplicação: Fundos\n");
+                aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+                aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate * pow(0.99, (DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate) / 365));
+                imposto = IRPF(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
+                aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate - imposto;
+                resgate_now = resgate_fundos(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, aplica[id[l]].DataAplicacao);
+            }
+            printf("Banco Emissor: %s", aplica[id[l]].investimento.BancoEmissor);
+            printf("Taxa: %.2f%%\n", aplica[id[l]].investimento.taxa);
+            printf("Valor de resgate em %d/%d/%d: %.2f\n", aplica[id[l]].DataResgate.dia, aplica[id[l]].DataResgate.mes, aplica[id[l]].DataResgate.ano, aplica[id[l]].ValorResgate);
+            printf("Valor de resgate hoje: %.2f\n", resgate_now);
+            printf("\n");
+        }
+        getchar();
+        printf("Pressione enter para continuar\n");
+        getchar();
     }
-
-    for(l = 0; l < i; l++) {
-        printf("Id de transação: %d\n", aplica[id[l]].ID_transacao);
-        if(aplica[id[l]].investimento.TipoAplicacao == 1) {
-            printf("Tipo de aplicação: LCI/LCA\n");
-            aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
-            resgate_now = resgate_lci(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, aplica[id[l]].DataAplicacao);
-        }
-        else if(aplica[id[l]].investimento.TipoAplicacao == 2) {
-            printf("Tipo de aplicação: CDB\n");
-            aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
-            imposto = IRPF(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
-            aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate - imposto;
-            resgate_now = resgate_cdb(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, aplica[id[l]].DataAplicacao);
-        }
-        else if(aplica[id[l]].investimento.TipoAplicacao == 3) {
-            printf("Tipo de aplicação: Fundos\n");
-            aplica[id[l]].ValorResgate = aplica[id[l]].ValorAplicacao * pow ((1 + (aplica[id[l]].investimento.taxa / 100)), DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
-            aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate * pow(0.99, (DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate) / 365));
-            imposto = IRPF(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, DiferencaDatas(aplica[id[l]].DataAplicacao, aplica[id[l]].DataResgate));
-            aplica[id[l]].ValorResgate = aplica[id[l]].ValorResgate - imposto;
-            resgate_now = resgate_fundos(aplica[id[l]].ValorAplicacao, aplica[id[l]].investimento.taxa, aplica[id[l]].DataAplicacao);
-        }
-        printf("Banco Emissor: %s", aplica[id[l]].investimento.BancoEmissor);
-        printf("Taxa: %.2f%%\n", aplica[id[l]].investimento.taxa);
-        printf("Valor de resgate em %d/%d/%d: %.2f\n", aplica[id[l]].DataResgate.dia, aplica[id[l]].DataResgate.mes, aplica[id[l]].DataResgate.ano, aplica[id[l]].ValorResgate);
-        printf("Valor de resgate hoje: %.2f\n", resgate_now);
-        printf("\n");
-    }
-    getchar();
-    printf("Pressione enter para continuar\n");
-    getchar();
 }
 
+//Calcula o montante de cada tipo de investimento para todas as transações
 void montante() {
     system(limpa);
     float montante_lci = 0;
