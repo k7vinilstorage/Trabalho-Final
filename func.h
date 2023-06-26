@@ -188,46 +188,50 @@ Data DataAtual() {
 void Cadastro() {
     system(limpa);
     int x = 0;
-    int i = 0;
-    while(i < 1) {
-        getchar();
-        printf("Insina o nome do cliente: ");
-        fgets(user[c_count].Nome, 50, stdin); //c_count = número de clientes
-        for(x = 0; x < 1; x) {
-            printf("Insira o CPF do cliente: ");
-            fgets(user[c_count].CPF, 15, stdin);
-            x = validar_cpf(user[c_count].CPF);
-            if(x == 0) {
-                printf("CPF inválido!\n");
-            }
-        }
 
-        for(x = 0; x < 1; x) {
-            printf("Insira o DDD do Telefone do cliente: ");
-            scanf("%d", &user[c_count].Fone.DDD);
-            printf("Insira o Telefone do cliente: ");
-            scanf("%d", &user[c_count].Fone.numero);
-            x = ValidarTelefone(user[c_count].Fone.DDD, user[c_count].Fone.numero);
-            if(x == 0) {
-                printf("Telefone inválido!\n");
-            }
-            while(1) {
-                printf("Insira a data de nascimento do cliente (dd/mm/aaaa): ");
-                scanf("%d/%d/%d", &user[c_count].Nascimento.dia, &user[c_count].Nascimento.mes, &user[c_count].Nascimento.ano);
-                if(ValidarData(user[c_count].Nascimento) == 1) {
-                    break;
-                }
-                printf("Data inválida!\n");
-            }
+    getchar();
+    printf("Insina o nome do cliente: ");
+    fgets(user[c_count].Nome, 50, stdin); //c_count = número de clientes
+    while(1) {
+        printf("Insira o CPF do cliente: ");
+        fgets(user[c_count].CPF, 15, stdin);
+        x = validar_cpf(user[c_count].CPF);
+        if(x == 0) {
+            printf("CPF inválido!\n");
             getchar();
         }
-        system(limpa);
-        printf("Cliente cadastrado!!\n");
-        printf("Pressione enter para continuar");  
-        getchar();
-        c_count++;
-        i++;
+        else {
+            break;
+        }
     }
+
+    while(1) {
+        printf("Insira o DDD do Telefone do cliente: ");
+        scanf("%d", &user[c_count].Fone.DDD);
+        printf("Insira o Telefone do cliente: ");
+        scanf("%d", &user[c_count].Fone.numero);
+        x = ValidarTelefone(user[c_count].Fone.DDD, user[c_count].Fone.numero);
+        if(x == 0) {
+            printf("Telefone inválido!\n");
+        }
+        else{
+            break;
+        }
+    }
+    while(1) {
+        printf("Insira a data de nascimento do cliente (dd/mm/aaaa): ");
+        scanf("%d/%d/%d", &user[c_count].Nascimento.dia, &user[c_count].Nascimento.mes, &user[c_count].Nascimento.ano);
+        if(ValidarData(user[c_count].Nascimento) == 1) {
+            break;
+        }
+        printf("Data inválida!\n");
+    }
+    getchar();
+    system(limpa);
+    printf("Cliente cadastrado!!\n");
+    printf("Pressione enter para continuar");  
+    getchar();
+    c_count++;
 }
 
 // Listar cliente
@@ -238,10 +242,11 @@ void list_cliente() {
     system(limpa);
 
     for(i = 0; i < c_count; i++) {
-        printf("%d:", i);
+        printf("#####################################################\n");
         printf("\nNome do Cliente: %s", user[i].Nome);
         printf("CPF do Cliente: %s\n", user[i].CPF);
         printf("Telefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
+        printf("\n#####################################################\n");
     }
     printf("\nPressione enter para continuar");  
     getchar();
@@ -618,9 +623,9 @@ void montante() {
     }
 
 
-    printf("O montante de investimentos lci é: %.2f\n", montante_lci);
-    printf("O montante de investimentos cdb é: %.2f\n", montante_cdb);
-    printf("O montante de investimentos fundos é: %.2f\n", montante_fundos);
+    printf("O montante de investimentos lci é:    %13.2f\n", montante_lci);
+    printf("O montante de investimentos cdb é:    %13.2f\n", montante_cdb);
+    printf("O montante de investimentos fundos é: %13.2f\n", montante_fundos);
     getchar();
     printf("Pressione enter para continuar\n");
     getchar();

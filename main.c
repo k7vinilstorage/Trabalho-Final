@@ -42,19 +42,55 @@ int main() {
             Cadastro();
         }
         else if(op == 2) {
-            show_cadastro();
+            if(c_count == 0) {
+                system(limpa);
+                printf("Não há clientes cadastrados!\n");
+                printf("\nPressione enter para continuar"); 
+                getchar();
+                getchar();
+            }
+            else {
+                show_cadastro();
+            }
         }
         else if(op == 3) {
-            list_cliente();
+            if(c_count == 0) {
+                system(limpa);
+                printf("Não há clientes cadastrados!\n");
+                printf("\nPressione enter para continuar"); 
+                getchar();
+                getchar();
+            }
+            else {
+                list_cliente();
+            }
         }
         else if(op == 4) {
             investimentos_menu();
         }
         else if(op == 5) {
-            aplicacao();
+            if(inv_count == 0) {
+                system(limpa);
+                printf("Não há investimentos cadastrados!\n");
+                printf("\nPressione enter para continuar"); 
+                getchar();
+                getchar();
+            }
+            else {
+                aplicacao();
+            }
         }
         else if(op == 6) {
-            list_aplicacacoes();
+             if(id == 0) {
+                system(limpa);
+                printf("Não há Aplicações cadastradas!\n");
+                printf("\nPressione enter para continuar"); 
+                getchar();
+                getchar();
+            }
+            else {
+                list_aplicacacoes();
+            }
         }
         else if(op == 7) {
             montante();  
