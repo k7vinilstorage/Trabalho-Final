@@ -245,9 +245,9 @@ void list_cliente() {
         printf("#####################################################\n");
         printf("\nNome do Cliente: %s", user[i].Nome);
         printf("CPF do Cliente: %s\n", user[i].CPF);
-        printf("Telefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
-        printf("\n#####################################################\n");
+        printf("Telefne do Cliente: (%d) %d\n\n", user[i].Fone.DDD, user[i].Fone.numero);
     }
+    printf("#####################################################\n");
     printf("\nPressione enter para continuar");  
     getchar();
 }
@@ -293,11 +293,13 @@ void show_cadastro() {
         }
 
         system(limpa);
+        printf("#########################################################\n\n");
         printf("Nome do Cliente: %s", user[i].Nome);
         printf("CPF do Cliente: %s", user[i].CPF);
         printf("\nTelefne do Cliente: (%d) %d\n", user[i].Fone.DDD, user[i].Fone.numero);
-        printf("Data de nascimento: %d/%d/%d\n", user[i].Nascimento.dia, user[i].Nascimento.mes, user[i].Nascimento.ano);
-        printf("\nPressione enter para continuar\n"); 
+        printf("Data de nascimento: %d/%d/%d\n\n", user[i].Nascimento.dia, user[i].Nascimento.mes, user[i].Nascimento.ano);
+        printf("#########################################################\n\n");
+        printf("Pressione enter para continuar\n"); 
         getchar();
         break;
     }
@@ -384,9 +386,9 @@ void investimentos_menu() {
         printf("#                                #\n");
         printf("##################################\n");
         printf("# 1                      LCI/LCA #\n");
-        printf("# 2                           CDB#\n");
-        printf("# 3                        Fundos#\n");
-        printf("# 0                          Sair#\n");
+        printf("# 2                          CDB #\n");
+        printf("# 3                       Fundos #\n");
+        printf("# 0                         Sair #\n");
         printf("##################################\n");
         printf("# Escolha uma opção(0 - 3): ");
         scanf("%d", &op);
@@ -415,20 +417,22 @@ int aplicacao() {
     char cpf[15];
 
     for(i = 0; i < inv_count; i++) {
+        printf("######################################\n\n");
         if(inv[i].TipoAplicacao == 1) {
-            printf("%d)\nAplicação LCI/LCA\n", i);
+            printf("Aplicação LCI/LCA              [%d]\n", i);
         }
         else if(inv[i].TipoAplicacao == 2) {
-            printf("%d)\nAplicação CDB\n", i);
+            printf("Aplicação CDB                  [%d]\n", i);
         }
         else if(inv[i].TipoAplicacao == 3) {
-            printf("%d)\nAplicação Fundos\n", i);
+            printf("Aplicação Fundos               [%d]\n", i);
         }
         printf("Banco emissor: %s", inv[i].BancoEmissor);
         printf("Taxa: %.3f%% ao dia\n", inv[i].taxa);
         printf("Ativo: %c", inv[i].ATIVO);
-        printf("\n");
+        printf("\n\n");
     }
+    printf("######################################\n");
 
     while(1) {
         printf("Insira o tipo de aplicação (0 - %d): ", (inv_count - 1));
@@ -489,7 +493,8 @@ int aplicacao() {
         printf("Aplicação concluida!\n");
         printf("Pressione enter para continuar\n");
 
-        getchar();       
+        getchar();
+        break;  
     }
 }
 
@@ -548,7 +553,10 @@ void list_aplicacacoes() {
             getchar();
             break;
         }
+
+        system(limpa);
         printf("Nome do Cliente: %s\n", user[j].Nome);
+        printf("#############################################################\n\n");
 
         // seleciona a entrada da transação do cleinte comparando cpf
         while(k < 99) {
@@ -589,10 +597,12 @@ void list_aplicacacoes() {
             printf("Valor de resgate em %d/%d/%d: %.2f\n", aplica[id[l]].DataResgate.dia, aplica[id[l]].DataResgate.mes, aplica[id[l]].DataResgate.ano, aplica[id[l]].ValorResgate);
             printf("Valor de resgate hoje: %.2f\n", resgate_now);
             printf("\n");
+            printf("#############################################################\n\n");
         }
         getchar();
         printf("Pressione enter para continuar\n");
         getchar();
+        break;
     }
 }
 
